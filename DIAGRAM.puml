@@ -1,0 +1,101 @@
+@startuml TodoApp
+
+' Modell-Schicht
+abstract class TodoList {
+    - title : String
+    + getTitle() : String
+    + setTitle(String) : void
+}
+
+class TextTodoList {
+    - content : String
+    + getContent() : String
+    + setContent(String) : void
+}
+
+class CheckboxTodoList {
+    - items : List<CheckboxTodoItem>
+    + addItem(CheckboxTodoItem) : void
+    + removeItem(CheckboxTodoItem) : void
+    + getSortedItems() : List<CheckboxTodoItem>
+    + getItems() : List<CheckboxTodoItem>
+}
+
+class TodoItem {
+    - text : String
+    + getText() : String
+    + setText(String) : void
+}
+
+class CheckboxTodoItem {
+    - checked : boolean
+    + isChecked() : boolean
+    + setChecked(boolean) : void
+}
+
+' Vererbung Modell
+TodoList <|-- TextTodoList
+TodoList <|-- CheckboxTodoList
+TodoItem <|-- CheckboxTodoItem
+
+' Assoziation
+CheckboxTodoList "1" o-- "0..*" CheckboxTodoItem : enthält
+
+' Persistenz
+class PersistenceManager {
+    - DIR : String
+    - FILE : String
+    + save(List<TodoList>) : void
+    + load() : List<TodoList>
+}
+
+' UI-Schicht
+class App {
+    + main(String[]) : void
+}
+
+class MainWindow {
+    - lists : List<TodoList>
+    - persistence : PersistenceManager
+    - sidebar : ListSidebar
+    - contentArea : JPanel
+    - showList(TodoList) : void
+    - createNewList() : void
+    - flushCurrentPanel() : void
+}
+
+class ListSidebar {
+    - listModel : DefaultListModel
+    + setLists(List<TodoList>) : void
+    + addList(TodoList) : void
+    + getSelectedList() : TodoList
+}
+
+class TextListPanel {
+    - list : TextTodoList
+    + flushToModel() : void
+}
+
+class CheckboxListPanel {
+    - list : CheckboxTodoList
+    + refresh() : void
+    - buildItemRow(CheckboxTodoItem) : JPanel
+}
+
+class NewListDialog {
+    + isConfirmed() : boolean
+    + getListTitle() : String
+    + isCheckboxType() : boolean
+}
+
+' Beziehungen UI
+App --> MainWindow : erstellt
+MainWindow --> ListSidebar : enthält
+MainWindow --> PersistenceManager : nutzt
+MainWindow --> TextListPanel : zeigt an
+MainWindow --> CheckboxListPanel : zeigt an
+MainWindow --> NewListDialog : öffnet
+TextListPanel --> TextTodoList : zeigt
+CheckboxListPanel --> CheckboxTodoList : zeigt
+
+@enduml

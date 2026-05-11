@@ -1,0 +1,21 @@
+# build-output
+out/
+target/
+*.jar
+*.class
+
+# temporäre dateien vom build-skript
+sources.txt
+nul
+
+# ide
+.idea/
+*.iml
+.vscode/
+*.project
+*.classpath
+.settings/
+
+# os
+.DS_Store
+Thumbs.db
