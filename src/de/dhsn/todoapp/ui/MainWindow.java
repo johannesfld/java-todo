@@ -56,7 +56,7 @@ public class MainWindow extends JFrame {
     private void buildUI() {
         setLayout(new BorderLayout());
 
-        sidebar = new ListSidebar(this::showList, this::createNewList);
+        sidebar = new ListSidebar(this::showList, this::createNewList, this::deleteList);
 
         contentArea = new JPanel(new BorderLayout());
         contentArea.setBackground(Theme.BG_CONTENT);
@@ -140,6 +140,30 @@ public class MainWindow extends JFrame {
             lists.add(newList);
             sidebar.addList(newList);
             showList(newList);
+        }
+    }
+
+    /**
+     * Löscht die angegebene Liste nach Bestätigung durch den Nutzer.
+     *
+     * @param list die zu löschende Liste
+     */
+    private void deleteList(TodoList list) {
+        int result = JOptionPane.showConfirmDialog(
+                this,
+                "Liste \"" + list.getTitle() + "\" wirklich löschen?",
+                "Liste löschen",
+                JOptionPane.YES_NO_OPTION);
+
+        if (result == JOptionPane.YES_OPTION) {
+            lists.remove(list);
+            sidebar.setLists(lists);
+            // content-bereich zurücksetzen
+            currentPanel = null;
+            contentArea.removeAll();
+            contentArea.add(makePlaceholder(), BorderLayout.CENTER);
+            contentArea.revalidate();
+            contentArea.repaint();
         }
     }
 

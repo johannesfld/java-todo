@@ -5,6 +5,8 @@ import de.dhsn.todoapp.model.TodoList;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -18,16 +20,19 @@ public class ListSidebar extends JPanel {
     private JList<TodoList> jList;
     private Consumer<TodoList> onSelect;
     private Runnable onNew;
+    private Consumer<TodoList> onDelete;
 
     /**
      * Erstellt die Sidebar.
      *
      * @param onSelect Callback wenn eine Liste ausgewählt wird
      * @param onNew    Callback wenn "Neue Liste" geklickt wird
+     * @param onDelete Callback wenn eine Liste gelöscht werden soll
      */
-    public ListSidebar(Consumer<TodoList> onSelect, Runnable onNew) {
+    public ListSidebar(Consumer<TodoList> onSelect, Runnable onNew, Consumer<TodoList> onDelete) {
         this.onSelect = onSelect;
         this.onNew = onNew;
+        this.onDelete = onDelete;
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(210, 0));
         setBackground(Theme.BG_SIDEBAR);
@@ -48,6 +53,29 @@ public class ListSidebar extends JPanel {
         jList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && jList.getSelectedValue() != null) {
                 onSelect.accept(jList.getSelectedValue());
+            }
+        });
+
+        // rechtsklick zeigt kontextmenü mit löschen
+        jList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.isPopupTrigger()) showPopup(e);
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (e.isPopupTrigger()) showPopup(e);
+            }
+            private void showPopup(MouseEvent e) {
+                int idx = jList.locationToIndex(e.getPoint());
+                if (idx < 0) return;
+                jList.setSelectedIndex(idx);
+                TodoList list = listModel.get(idx);
+                JPopupMenu menu = new JPopupMenu();
+                JMenuItem del = new JMenuItem("Liste löschen");
+                del.addActionListener(ae -> onDelete.accept(list));
+                menu.add(del);
+                menu.show(jList, e.getX(), e.getY());
             }
         });
 

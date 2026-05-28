@@ -10,7 +10,7 @@ Vorgabe war eine Java-Swing-Anwendung mit mindestens zwei Arten von Todo-Listen,
 
 Wir haben das Projekt nach dem natürlichen Schnitt zwischen Modell/Persistenz und Benutzeroberfläche aufgeteilt.
 
-Lorenz hat sich um die Modellklassen (`model/`) und die Datenpersistenz (`persistence/`) gekümmert. Dort ist die Datenstruktur und die Vererbungshierarchie entstanden. Johannes hat die komplette Swing-Oberfläche implementiert, also das Hauptfenster, die Sidebar, die Panels für die beiden Listentypen und den Dialog zum Erstellen neuer Listen. README und diese Dokumentation haben wir gemeinsam geschrieben.
+Lorenz hat sich um die Modellklassen (`model/`) und die Datenpersistenz (`persistence/`) gekümmert. Dort ist die Datenstruktur und die Vererbungshierarchie entstanden. Johannes hat die komplette Swing-Oberfläche implementiert, also das Hauptfenster, die Sidebar, die Panels für die beiden Listentypen, den Dialog zum Erstellen neuer Listen und die Löschen-Funktion. README und diese Dokumentation haben wir gemeinsam geschrieben.
 
 ## 3. Architektur
 
@@ -63,7 +63,7 @@ Gespeichert wird beim Schließen des Fensters (im `WindowListener` von `MainWind
 
 ## 6. UI-Architektur
 
-Das Hauptfenster (`MainWindow`) ist ein `JFrame` mit einem `JSplitPane`: links die `ListSidebar` (210px breit), rechts ein Content-Bereich der je nach ausgewählter Liste entweder ein `TextListPanel` oder ein `CheckboxListPanel` anzeigt.
+Das Hauptfenster (`MainWindow`) ist ein `JFrame` mit einem `JSplitPane`: links die `ListSidebar` (210px breit), rechts ein Content-Bereich der je nach ausgewählter Liste entweder ein `TextListPanel` oder ein `CheckboxListPanel` anzeigt. Listen lassen sich per Rechtsklick in der Sidebar löschen, wobei ein Bestätigungs-Dialog erscheint.
 
 Alle Farben, Schriften und Größenangaben stehen zentral in `Theme.java`. Das hat sich als praktisch erwiesen weil wir an einer Stelle die Farben anpassen konnten ohne überall suchen zu müssen.
 
@@ -105,7 +105,7 @@ Eine kleine Kuriosität: beim ersten Versuch hat das Build-Skript eine Datei mit
 Folgende Dinge haben wir bewusst nicht umgesetzt weil sie ausserhalb der Anforderungen lagen:
 
 - Kein Drag-and-Drop zum Umsortieren von Listen oder Items
-- Keine Bestätigung beim Löschen eines Items (man kann versehentlich auf das X klicken)
+- Keine Bestätigung beim Löschen eines Items (man kann versehentlich auf das X klicken) - bei Listen gibt es einen Bestätigungs-Dialog, bei Items nicht
 - Der `PersistenceManager` gibt Fehler nur auf `stderr` aus. Ein echter Fehler-Dialog wäre besser, aber für die Abgabe war das nicht mehr notwendig
 
 ## 9. Reflexion

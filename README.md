@@ -31,7 +31,7 @@ Beim nächsten Start werden sie automatisch geladen.
 
 ## Funktionen
 
-- Mehrere Todo-Listen verwalten
+- Mehrere Todo-Listen verwalten und löschen (Rechtsklick in der Sidebar)
 - Zwei Typen: Fließtext-Listen und Checkbox-Listen
 - Checkbox-Items: abgehakt → automatisch ans Ende, durchgestrichen + ausgegraut
 - Persistenz über App-Neustarts hinweg
