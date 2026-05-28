@@ -17,12 +17,7 @@ public class PersistenceManager {
     private static final String DIR = System.getProperty("user.home") + File.separator + ".todoapp";
     private static final String FILE = DIR + File.separator + "data.ser";
 
-    /**
-     * Speichert alle Listen in die Datei.
-     * Wird beim Schließen des Fensters aufgerufen.
-     *
-     * @param lists die zu speichernden Listen
-     */
+    /** Speichert alle Listen in die Datei. */
     public void save(List<TodoList> lists) {
         try {
             Files.createDirectories(Paths.get(DIR));
@@ -30,16 +25,12 @@ public class PersistenceManager {
                 oos.writeObject(new ArrayList<>(lists));
             }
         } catch (IOException e) {
-            // TODO maybe show an error dialog here instead of just printing
+            // TODO: hier evtl. einen Fehler-Dialog anzeigen statt nur stderr
             System.err.println("fehler beim speichern: " + e.getMessage());
         }
     }
 
-    /**
-     * Lädt die gespeicherten Listen. Gibt leere Liste zurück wenn keine Datei existiert.
-     *
-     * @return geladene Listen oder leere Liste beim ersten Start
-     */
+    /** Lädt die gespeicherten Listen. Gibt leere Liste zurück wenn keine Datei existiert. */
     @SuppressWarnings("unchecked")
     public List<TodoList> load() {
         File f = new File(FILE);
