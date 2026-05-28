@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 
 /**
  * Dialog zum Erstellen einer neuen Todo-Liste.
- * Fragt nach Titel und Typ (Text oder Checkbox) – typ-auswahl als klickbare karten.
+ * Fragt nach Titel und Typ (Text oder Checkbox). Typauswahl als klickbare Karten.
  */
 public class NewListDialog extends JDialog {
 
@@ -96,7 +96,7 @@ public class NewListDialog extends JDialog {
      * @return fertiges karten-panel
      */
     private JPanel buildTypeCard(String icon, String label, String sub, boolean isCheckbox) {
-        // anonymous panel das seinen eigenen border/hintergrund malt – status aus checkboxSelected
+        // panel malt border/hintergrund selbst, status kommt aus checkboxSelected
         JPanel card = new JPanel(new GridBagLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -141,12 +141,10 @@ public class NewListDialog extends JDialog {
         subLbl.setForeground(Theme.TEXT_SUB);
         card.add(subLbl, gbc);
 
-        // klick wechselt checkboxSelected und beide karten werden neu gemalt
         card.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 checkboxSelected = isCheckbox;
-                // parent repainten damit beide karten ihren zustand aktualisieren
                 card.getParent().repaint();
             }
         });

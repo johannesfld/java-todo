@@ -22,7 +22,7 @@ public class MainWindow extends JFrame {
     private PersistenceManager persistence;
     private ListSidebar sidebar;
     private JPanel contentArea;
-    // aktuell angezeigtes panel – wird zum flushen vor dem speichern gebraucht
+    // aktuell angezeigtes panel, brauchen wir zum flushen vor dem speichern
     private JPanel currentPanel;
 
     /**
@@ -48,6 +48,7 @@ public class MainWindow extends JFrame {
             sidebar.setLists(lists);
             showList(lists.get(0));
         } else {
+            // sidebar trotzdem füllen, auch wenn leer (sonst zeigt sie alte Daten)
             sidebar.setLists(lists);
         }
     }

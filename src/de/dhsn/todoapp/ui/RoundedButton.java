@@ -23,7 +23,7 @@ public class RoundedButton extends JButton {
     public RoundedButton(String text, boolean primary) {
         super(text);
         this.primary = primary;
-        // wir malen komplett selbst – standard-rendering abschalten
+        // wir malen selbst, standard-rendering aus
         setOpaque(false);
         setContentAreaFilled(false);
         setBorderPainted(false);
@@ -40,7 +40,6 @@ public class RoundedButton extends JButton {
 
     @Override
     protected void paintComponent(Graphics g) {
-        // kein super.paintComponent() – das würde unseren hintergrund überschreiben
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -59,7 +58,6 @@ public class RoundedButton extends JButton {
             g2.setColor(Theme.TEXT_DARK);
         }
 
-        // text selbst malen da wir super nicht aufrufen
         g2.setFont(getFont());
         FontMetrics fm = g2.getFontMetrics();
         String txt = getText();

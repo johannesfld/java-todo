@@ -13,13 +13,12 @@ import javax.swing.*;
 public class App {
 
     /**
-     * Main-Methode – startet die Applikation.
+     * Main-Methode. Startet die Applikation.
      *
      * @param args werden nicht verwendet
      */
     public static void main(String[] args) {
-        // nimbus laf verwenden – lässt sich besser stylen als windows-laf
-        // windows-laf ignoriert setBackground() bei custom painting
+        // nimbus laf, lässt sich besser stylen als windows-laf
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -28,7 +27,6 @@ public class App {
                 }
             }
         } catch (Exception e) {
-            // metal als fallback ist auch okay
         }
 
         // checkbox-hintergrund global setzen, sonst malt nimbus drüber

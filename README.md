@@ -1,4 +1,4 @@
-# Todo App – DHSN Prüfungsleistung
+# Todo App (DHSN Prüfungsleistung)
 
 Java Swing Anwendung zur Verwaltung von Todo-Listen.
 

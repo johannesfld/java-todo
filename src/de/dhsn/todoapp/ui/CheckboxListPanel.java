@@ -80,7 +80,7 @@ public class CheckboxListPanel extends JPanel {
     }
 
     /**
-     * Baut die Item-Liste neu auf – wird nach jeder Änderung aufgerufen.
+     * Baut die Item-Liste neu auf. Wird nach jeder Änderung aufgerufen.
      */
     public void refresh() {
         itemsPanel.removeAll();
@@ -89,7 +89,6 @@ public class CheckboxListPanel extends JPanel {
         boolean separatorAdded = false;
 
         for (CheckboxTodoItem item : sorted) {
-            // trennlinie vor dem ersten abgehakten item einfügen
             if (item.isChecked() && !separatorAdded) {
                 separatorAdded = true;
                 JSeparator sep = new JSeparator(SwingConstants.HORIZONTAL);
@@ -119,7 +118,6 @@ public class CheckboxListPanel extends JPanel {
         row.setOpaque(true);
         row.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 8));
 
-        // hover-effekt auf der ganzen zeile
         row.addMouseListener(new MouseAdapter() {
             @Override public void mouseEntered(MouseEvent e) { row.setBackground(Theme.HOVER_ROW); }
             @Override public void mouseExited(MouseEvent e)  { row.setBackground(Theme.BG_CONTENT); }
@@ -134,7 +132,6 @@ public class CheckboxListPanel extends JPanel {
         label.setFont(Theme.FONT_BASE);
 
         if (item.isChecked()) {
-            // durchgestrichen + ausgegraut für erledigte items
             label.setText("<html><strike>" + item.getText() + "</strike></html>");
             label.setForeground(Theme.TEXT_CHECKED);
         } else {

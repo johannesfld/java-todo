@@ -59,7 +59,6 @@ public class TextListPanel extends JPanel {
         textArea.setSelectionColor(Theme.ACCENT_LIGHT);
         textArea.setMargin(new Insets(12, 16, 12, 16));
 
-        // beim verlieren des fokus speichern wir den text zurück ins modell
         textArea.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {

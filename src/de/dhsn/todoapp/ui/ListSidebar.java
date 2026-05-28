@@ -108,7 +108,7 @@ public class ListSidebar extends JPanel {
     }
 
     /**
-     * Custom renderer für die JList – gerundetes highlight bei selektion + typ-badge.
+     * Custom Renderer für die JList. Gerundetes Highlight bei Selektion plus Typ-Badge.
      */
     private static class SidebarCellRenderer extends JPanel
             implements ListCellRenderer<TodoList> {
